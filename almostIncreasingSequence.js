@@ -17,7 +17,7 @@ You can remove 3 from the array to get the strictly increasing sequence [1, 2]. 
 //Code Starts There
 
 function almostIncreasingSequence(sequence) {
-   let myBool = "";
+   let myBool = '';
 
    for (let i = 0; i < sequence.length; i += 1) {
       const arr = [...sequence.slice(0, i), ...sequence.slice(i + 1)]
