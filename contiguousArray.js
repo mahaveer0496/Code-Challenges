@@ -13,197 +13,36 @@
 // Note: The length of the given binary array will not exceed 50,000.
 
 var findMaxLength = (nums) => {
-  const auxArray = [0];
-  let count_0 = 0;
-  let count_1 = 0;
-  nums.forEach((num) => {
-    if (num === 0) {
-      count_0 += 1;
+  // convert 0 to -1, this allows net sum between some range to become 0 so we know elements in between cancel out each other
+  const invertedArray = nums.map((num) => (num == 0 ? -1 : 1));
+  let sum = 0;
+  let maxSoFar = 0;
+
+  // create sum array, just add each element of invertedArray
+  const sumArray = [];
+  invertedArray.forEach((num, i) => {
+    sum += num;
+    if (sum === 0) {
+      maxSoFar = i + 1;
     }
-    if (num === 1) {
-      count_1 += 1;
-    }
-    auxArray.push(count_0 - count_1);
+    sumArray.push(sum);
   });
-  const obj = {};
-  auxArray.forEach((num, i) => {
-    if (obj[num]) {
-      obj[num].push(i);
+
+  // create a hash and store the 1st occurence index of an element,
+  // if element was seen before, then we just compute range between previous index and current index of occurence, and if this range is greater than update maxSoFar
+  const hash = {};
+  sumArray.forEach((num, i) => {
+    if (hash[num] != null) {
+      if (i - hash[num] > maxSoFar) {
+        maxSoFar = i - hash[num];
+      }
     } else {
-      obj[num] = [i];
+      hash[num] = i;
     }
   });
-
-  let max = [];
-
-  for (const key in obj) {
-    if (max.length < obj[key].length) {
-      max = obj[key];
-    }
-  }
-
-  max;
-  auxArray;
-
-  let maxIndex = -Infinity;
-  let minIndex = +Infinity;
-  max.forEach((num) => {
-    if (maxIndex < num) {
-      maxIndex = num;
-    }
-    if (minIndex > num) {
-      minIndex = num;
-    }
-  });
-  maxIndex;
-  minIndex;
-  return maxIndex - minIndex;
+  maxSoFar;
+  hash;
+  return maxSoFar;
 };
 
-findMaxLength([
-  1,
-  0,
-  1,
-  0,
-  1,
-  1,
-  0,
-  0,
-  1,
-  0,
-  0,
-  0,
-  1,
-  0,
-  0,
-  0,
-  1,
-  1,
-  0,
-  1,
-  1,
-  0,
-  1,
-  0,
-  0,
-  1,
-  0,
-  0,
-  1,
-  1,
-  0,
-  0,
-  1,
-  1,
-  1,
-  0,
-  0,
-  1,
-  1,
-  0,
-  0,
-  0,
-  1,
-  1,
-  0,
-  1,
-  1,
-  0,
-  1,
-  1,
-  1,
-  0,
-  1,
-  1,
-  1,
-  0,
-  1,
-  0,
-  1,
-  1,
-  0,
-  0,
-  0,
-  1,
-  0,
-  1,
-  1,
-  0,
-  0,
-  1,
-  1,
-  1,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  1,
-  1,
-  1,
-  0,
-  0,
-  0,
-  1,
-  1,
-  0,
-  0,
-  1,
-  0,
-  0,
-  0,
-  0,
-  1,
-  0,
-  1,
-  0,
-  0,
-  0,
-  0,
-]);
-
-// var findMaxLength = function (nums) {
-//   let count_0 = 0;
-//   let count_1 = 0;
-//   let previousNumber = nums[0];
-//   let max_zero = 0;
-//   let max_one = 0;
-//   nums.forEach((currentNumber) => {
-//     if (previousNumber !== currentNumber) {
-//       if (count_0 && count_1) {
-//         if (max_one < count_1) {
-//           max_one = count_1;
-//         }
-//         if (max_zero < count_0) {
-//           max_zero = count_0;
-//         }
-
-//         count_0 = 0;
-//         count_1 = 0;
-//       }
-//     }
-
-//     if (currentNumber === 1) {
-//       count_1 += 1;
-//     }
-//     if (currentNumber === 0) {
-//       count_0 += 1;
-//     }
-
-//     previousNumber;
-//     currentNumber;
-//     count_0;
-//     count_1;
-//     max_zero;
-//     max_one;
-
-//     previousNumber = currentNumber;
-//   });
-
-//   count_0;
-//   count_1;
-//   const result = max_zero + max_one - Math.abs(max_one - max_one);
-//   result;
-//   return result;
-// };
+findMaxLength([0, 1, 0, 1, 0, 0, 1]);
