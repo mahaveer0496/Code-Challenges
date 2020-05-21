@@ -35,4 +35,34 @@ var productExceptSelf = function (array) {
   return array.map((num) => product / num);
 };
 
-console.log(productExceptSelf([1, 2, 3, 4]));
+// console.log(productExceptSelf([1, 2, 3, 4]));
+
+const productExceptSelfWithoutDivision = (array) => {
+  const prefixProducts = [];
+  const suffixProducts = [];
+  const result = [];
+
+  for (const num of array) {
+    const last = prefixProducts.slice(-1)[0];
+    prefixProducts.push(last ? last * num : num);
+  }
+  for (const num of array.reverse()) {
+    const last = suffixProducts.slice(-1)[0];
+    suffixProducts.push(last ? last * num : num);
+  }
+
+  for (const i in array) {
+    if (i == 0) {
+      result.push(suffixProducts[+i + 1]);
+    } else if (i == array.length - 1) {
+      result.push(prefixProducts[+i - 1]);
+    } else {
+      result.push(prefixProducts[+i - 1] * suffixProducts[+i + 1]);
+    }
+  }
+  prefixProducts;
+  suffixProducts;
+  result;
+};
+
+console.log(productExceptSelfWithoutDivision([1, 2, 3, 4]));
