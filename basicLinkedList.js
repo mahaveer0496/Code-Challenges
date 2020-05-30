@@ -1,13 +1,13 @@
 // redo this
 class Node {
-  constructor(value) {
+  constructor(value = null) {
     this.value = value;
     this.next = null;
   }
 }
 class LinkedList {
   constructor(value) {
-    this.head = new Node(value);
+    this.head = new Node();
     this.tail = this.head;
     this.length = 1;
   }
@@ -72,28 +72,31 @@ class LinkedList {
     this.head = first;
     return this;
   }
-  toString() {
-    const array = [];
-    let currentNode = this.head;
-    while (currentNode != null) {
-      array.push(currentNode.value);
-      currentNode = currentNode.next;
-    }
-    return array;
+  inspect() {
+    // const array = [];
+    // let currentNode = this.head;
+    // while (currentNode != null) {
+    //   array.push(currentNode.value);
+    //   currentNode = currentNode.next;
+    // }
+    // return array;
+    return JSON.stringify(this, null, 2);
   }
 }
 
-const myLL = new LinkedList(10);
+const myLL = new LinkedList();
 
 myLL
-  .prepend(1)
+  // .prepend(1)
   .append(2)
   .append(4)
   .append(5)
-  .insert(6, 3)
-  .insert(1, 9)
-  .insert(1, 99)
-  .remove(1)
-  .reverse()
-  .reverse()
+  // .insert(6, 3)
+  // .insert(1, 9)
+  // .insert(1, 99)
+  // .remove(1)
+  // .reverse()
+  // .reverse()
   .toString();
+
+console.log(myLL);
