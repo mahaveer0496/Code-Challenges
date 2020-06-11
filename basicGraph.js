@@ -88,29 +88,29 @@
 
 class Graph {
   constructor(isDirected = false, numberOfVertices) {
-    this.numberOfVertices = numberOfVertices;
-    this.adjacenyList = {};
-    this.indexMap = {};
-    this.counter = 0;
+    this.numberOfVertices = numberOfVertices
+    this.adjacenyList = {}
+    this.indexMap = {}
+    this.counter = 0
     // this.adjacenyMatrix = Array.from({ length: numberOfVertices }, () =>
     //   Array.from({ length: numberOfVertices }, () => 0),
     // );
 
-    console.log(this.adjacenyMatrix);
-    this.isDirected = isDirected;
+    console.log(this.adjacenyMatrix)
+    this.isDirected = isDirected
   }
 
   addVertex(vertex) {
-    this.adjacenyList[vertex] = [];
+    this.adjacenyList[vertex] = []
     // this.indexMap[vertex] = this.counter;
     // this.counter++;
-    return this;
+    return this
   }
 
   addEdge(source, destination) {
-    this.adjacenyList[source].push(destination);
+    this.adjacenyList[source].push(destination)
     if (!this.isDirected) {
-      this.adjacenyList[destination].push(source);
+      this.adjacenyList[destination].push(source)
     }
     // const column = this.indexMap[source];
     // const row = this.indexMap[destination];
@@ -121,19 +121,19 @@ class Graph {
     //   this.adjacenyMatrix[column][row] = 1;
     // }
 
-    return this;
+    return this
   }
 
   getVertices() {
-    return Object.keys(this.adjacenyList);
+    return Object.keys(this.adjacenyList)
   }
   getEdges() {
-    return Object.values(this.adjacenyList);
+    return Object.values(this.adjacenyList)
   }
   getNeighbors(vertex) {
     // const column = this.indexMap(vertex);
     // return this.adjacenyMatrix[column];
-    return this.adjacenyList[vertex];
+    return this.adjacenyList[vertex]
   }
 }
 
@@ -145,21 +145,21 @@ const bfs = (graph, source) => {
     \
      6
   */
-  const visited = new Map(); //[1, 2, 3, 4, 6]
+  const visited = new Map() //[1, 2, 3, 4, 6]
 
-  visited.set(source, true);
-  const queue = [source]; //
+  visited.set(source, true)
+  const queue = [source] //
   while (queue.length) {
-    const neighbors = graph.getNeighbors(queue.shift()); //
+    const neighbors = graph.getNeighbors(queue.shift()) //
     for (const neighbor of neighbors) {
       if (!visited.get(neighbor)) {
-        visited.set(neighbor, true);
-        queue.push(neighbor);
+        visited.set(neighbor, true)
+        queue.push(neighbor)
       }
     }
   }
-  return [...visited.keys()];
-};
+  return [...visited.keys()]
+}
 
 const dfs = (graph, source) => {
   /*
@@ -170,21 +170,21 @@ const dfs = (graph, source) => {
      6
 
   */
-  const visited = new Map();
+  const visited = new Map()
 
   const helper = (vertex, visited) => {
-    visited.set(vertex, true);
-    const neighbors = graph.getNeighbors(vertex);
+    visited.set(vertex, true)
+    const neighbors = graph.getNeighbors(vertex)
     for (const neighbor of neighbors) {
       if (!visited.get(neighbor)) {
-        helper(neighbor, visited);
+        helper(neighbor, visited)
       }
     }
-  };
+  }
 
-  helper(source, visited);
-  return [...visited.keys()];
-};
+  helper(source, visited)
+  return [...visited.keys()]
+}
 
 const bfs2 = (graph, s) => {
   const vertices = graph
@@ -195,78 +195,78 @@ const bfs2 = (graph, s) => {
       distance: v == s ? 0 : Infinity,
       parent: null,
     }))
-    .reduce((acc, curr) => ({ ...acc, [curr.value]: curr }), {});
+    .reduce((acc, curr) => ({ ...acc, [curr.value]: curr }), {})
 
-  const queue = [vertices[s]];
+  const queue = [vertices[s]]
   while (queue.length) {
-    const u = queue.shift();
+    const u = queue.shift()
 
-    const neighbors = graph.getNeighbors(u.value);
+    const neighbors = graph.getNeighbors(u.value)
     for (const n of neighbors) {
-      const v = vertices[n];
+      const v = vertices[n]
 
       if (v.color === 'white') {
-        v.color = 'gray';
-        v.distance = u.distance + 1;
-        v.parent = u;
-        queue.push(v);
+        v.color = 'gray'
+        v.distance = u.distance + 1
+        v.parent = u
+        queue.push(v)
       }
     }
-    u.color = 'black';
+    u.color = 'black'
   }
 
-  return vertices;
-};
+  return vertices
+}
 
 const detectCycle = (graph) => {
-  let hasCycle = false;
+  let hasCycle = false
   for (const vertex of graph.getVertices()) {
-    const output = bfs2(graph, vertex);
+    const output = bfs2(graph, vertex)
 
     for (const i in output) {
       const containsSource = (obj, i) => {
         if (obj) {
           if (obj.value == i) {
-            return true;
+            return true
           } else {
-            return containsSource(obj.parent, i);
+            return containsSource(obj.parent, i)
           }
         }
-      };
+      }
       if (containsSource(output[i], i)) {
-        hasCycle = true;
+        hasCycle = true
       }
     }
   }
-  hasCycle;
-  return hasCycle;
-};
+  hasCycle
+  return hasCycle
+}
 const printPath = (g, source, destination) => {
-  const bfsOutput = bfs2(g, source);
-  const pathObject = bfsOutput[destination];
-  const path = [];
+  const bfsOutput = bfs2(g, source)
+  const pathObject = bfsOutput[destination]
+  const path = []
   if (source == destination) {
-    return source;
+    return source
   }
   if (!pathObject) {
-    return `No node for ${destination}`;
+    return `No node for ${destination}`
   }
   if (!pathObject.parent) {
-    return `No Path between ${source} and ${destination}`;
+    return `No Path between ${source} and ${destination}`
   }
   if (pathObject.parent) {
     const helper = (obj) => {
       if (obj) {
-        path.push(obj.value);
-        helper(obj.parent);
+        path.push(obj.value)
+        helper(obj.parent)
       }
-    };
-    helper(pathObject);
+    }
+    helper(pathObject)
   }
-  return path.reverse().join('->');
-};
+  return path.reverse().join('->')
+}
 
-const graph = new Graph(false, 3);
+const graph = new Graph(false, 3)
 
 graph
   .addVertex(1)
@@ -279,8 +279,8 @@ graph
   .addEdge(1, 4)
   .addEdge(2, 6)
   .addEdge(2, 3)
-  .addEdge(3, 4);
-graph;
+  .addEdge(3, 4)
+graph
 
 /*
 
@@ -383,8 +383,8 @@ graph;
 
                 visited = {1: true, 2: true, 3: true, 4 true, 6: true };
 */
-console.log(graph.adjacenyList);
-console.log(dfs(graph, 1));
+console.log(graph.adjacenyList)
+console.log(dfs(graph, 1))
 // console.log(detectCycle(graph));
 
 /*
@@ -435,7 +435,7 @@ edge list
 // let matrix = Array.from({length: 3})(3).fill(Array(3).fill(0));
 const matrix = Array.from({ length: 3 }, () =>
   Array.from({ length: 3 }, () => 0),
-);
+)
 // console.log(matrix);
 /*
 [ 
