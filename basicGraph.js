@@ -86,17 +86,18 @@
     index++
 */
 
-class Graph {
+export default class Graph {
   constructor(isDirected = false, numberOfVertices) {
     this.numberOfVertices = numberOfVertices
     this.adjacenyList = {}
     this.indexMap = {}
     this.counter = 0
+    this.transpose = {}
     // this.adjacenyMatrix = Array.from({ length: numberOfVertices }, () =>
     //   Array.from({ length: numberOfVertices }, () => 0),
     // );
 
-    console.log(this.adjacenyMatrix)
+    // console.log(this.adjacenyMatrix)
     this.isDirected = isDirected
   }
 
@@ -134,6 +135,25 @@ class Graph {
     // const column = this.indexMap(vertex);
     // return this.adjacenyMatrix[column];
     return this.adjacenyList[vertex]
+  }
+  getTranspose() {
+    let allEdges = []
+    for (const [vertex, neighbors] of Object.entries(this.adjacenyList)) {
+      for (const neighbor of neighbors) {
+        allEdges.push([+vertex, +neighbor])
+      }
+    }
+    allEdges = allEdges.map(([source, destination]) => [destination, source])
+    allEdges.forEach(([source, destination]) => {
+      if (this.transpose[source]) {
+        this.transpose[source].push(destination)
+      } else {
+        this.transpose[source] = [destination]
+      }
+    })
+
+    this.adjacenyList = this.transpose
+    return this
   }
 }
 
@@ -280,7 +300,6 @@ graph
   .addEdge(2, 6)
   .addEdge(2, 3)
   .addEdge(3, 4)
-graph
 
 /*
 
@@ -383,8 +402,8 @@ graph
 
                 visited = {1: true, 2: true, 3: true, 4 true, 6: true };
 */
-console.log(graph.adjacenyList)
-console.log(dfs(graph, 1))
+// console.log(graph.adjacenyList)
+// console.log(dfs(graph, 1))
 // console.log(detectCycle(graph));
 
 /*
