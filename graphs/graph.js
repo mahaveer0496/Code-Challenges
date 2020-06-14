@@ -5,6 +5,7 @@ class Graph {
     this.counter = 0
     this.transpose = {}
     this.isDirected = isDirected
+    this.adjacenyMatrix = []
   }
 
   addVertex(vertex) {
@@ -23,6 +24,7 @@ class Graph {
   getVertices() {
     return Object.keys(this.adjacenyList)
   }
+
   getEdges() {
     const edges = []
     for (const [source, neighbors] of Object.entries(this.adjacenyList)) {
@@ -53,6 +55,18 @@ class Graph {
 
     this.adjacenyList = this.transpose
     return this
+  }
+  getAdjacenyMatrix() {
+    const edges = this.getEdges()
+    const vertices = this.getVertices()
+    this.adjacenyMatrix = Array.from({ length: vertices.length }, () =>
+      Array.from({ length: vertices.length }, () => 0),
+    )
+    for (const edge of edges) {
+      const { source, destination, edgeWeight = 1 } = edge
+      this.adjacenyMatrix[source][destination] = edgeWeight
+    }
+    return this.adjacenyMatrix
   }
   inspect() {
     return JSON.stringify(this, null, 2)
