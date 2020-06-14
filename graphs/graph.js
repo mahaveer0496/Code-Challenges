@@ -24,7 +24,13 @@ class Graph {
     return Object.keys(this.adjacenyList)
   }
   getEdges() {
-    return Object.values(this.adjacenyList)
+    const edges = []
+    for (const [source, neighbors] of Object.entries(this.adjacenyList)) {
+      for (const neighbor of neighbors) {
+        edges.push({ source, destination: neighbor })
+      }
+    }
+    return edges
   }
   getNeighbors(vertex) {
     return this.adjacenyList[vertex]
@@ -61,6 +67,15 @@ export class WeightedGraph extends Graph {
   addEdge(source, destination, edgeWeight) {
     this.adjacenyList[source].push({ destination, edgeWeight })
     return this
+  }
+  getEdges() {
+    const edges = []
+    for (const [source, neighbors] of Object.entries(this.adjacenyList)) {
+      for (const neighbor of neighbors) {
+        edges.push({ source, ...neighbor })
+      }
+    }
+    return edges
   }
 }
 
