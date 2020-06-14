@@ -1,5 +1,6 @@
 /*
-  Sub Graphs in which each vertex can be visited from any other vertex in that sub graph
+  SCCS is part of a Graph in which each vertex can be visited from any other vertex in that sub graph (basically self contained cycles 💡)
+
   Kosaraju's Algorithm -
   * Initialise Visited Set and a Stack 
   * For each vertex
@@ -13,8 +14,7 @@
     * Pop Stack's item
       * if item in visited -> do nothing
       * else Do DFS for that vertex 
-        * When entering a vertex put it into Visited and SCC array       
-    
+        * When entering a vertex put it into Visited and SCC array    
 */
 
 const { default: Graph } = require('./basicGraph')
@@ -31,19 +31,19 @@ const dfsUtil1 = (graph, vertex, visited, stack) => {
   stack.push(vertex)
 }
 
-const dfsUtil2 = (graph, vertex, visited, subSCC) => {
+const dfsUtil2 = (graph, vertex, visited, scc) => {
   visited.add(vertex)
-  subSCC.push(vertex)
+  scc.push(vertex)
   const neighbors = graph.getNeighbors(vertex)
   for (const neighbor of neighbors) {
     if (!visited.has(+neighbor)) {
-      dfsUtil1(graph, +neighbor, visited, subSCC)
+      dfsUtil1(graph, +neighbor, visited, scc)
     }
   }
 }
 
-const getSCC = (graph) => {
-  const sccs = []
+const getAllSCC = (graph) => {
+  const allSCCS = []
   let visited = new Set()
   const stack = []
   const vertices = graph.getVertices()
@@ -57,16 +57,16 @@ const getSCC = (graph) => {
   const graphTranspose = graph.getTranspose()
   while (stack.length) {
     const vertex = stack.pop()
-    const subSCC = []
+    const scc = []
     if (!visited.has(vertex)) {
-      dfsUtil2(graphTranspose, vertex, visited, subSCC)
+      dfsUtil2(graphTranspose, vertex, visited, scc)
     }
-    if (subSCC.length) {
-      sccs.push(subSCC)
+    if (scc.length) {
+      allSCCS.push(scc)
     }
   }
 
-  return sccs
+  return allSCCS
 }
 graph
   .addVertex(0)
@@ -85,4 +85,6 @@ graph
   .addEdge(5, 3)
   .addEdge(5, 6)
 
-console.log(getSCC(graph))
+console.log(getAllSCC(graph))
+
+export default getAllSCC
