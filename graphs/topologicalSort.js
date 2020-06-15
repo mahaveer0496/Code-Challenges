@@ -21,8 +21,6 @@ Algorithm - (Kahn's Algorithm)
   * decrement inDegree of each neighbor
   * push all neighbors with 0 inDegree to sorted array
   * repeat as long as there is a source node
-
-
 */
 
 function topological_sort(numberOfVertices, edges) {

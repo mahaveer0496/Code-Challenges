@@ -9,11 +9,10 @@ const bfs = (graph, source) => {
      6
   */
   const visited = new Map() //[1, 2, 3, 4, 6]
-
   visited.set(source, true)
   const queue = [source] //
   while (queue.length) {
-    const neighbors = graph.getNeighbors(queue.shift()) //
+    const neighbors = graph.getNeighbors(queue.shift()) // {value, left: {value, value, right}, right}
     for (const neighbor of neighbors) {
       if (!visited.get(neighbor)) {
         visited.set(neighbor, true)

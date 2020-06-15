@@ -38,6 +38,7 @@ class Graph {
     return this.adjacenyList[vertex]
   }
   getTranspose() {
+    // G = a->b  Gt = b->a
     let allEdges = []
     for (const [vertex, neighbors] of Object.entries(this.adjacenyList)) {
       for (const neighbor of neighbors) {
@@ -52,7 +53,6 @@ class Graph {
         this.transpose[source] = [destination]
       }
     })
-
     this.adjacenyList = this.transpose
     return this
   }
