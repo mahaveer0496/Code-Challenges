@@ -13,15 +13,15 @@ example
 
 const findMinTopDown = (n) => {
   const memo = {}
+  // f(n) = min(if n is Even f(n/2), if n is odd f(n/3), f(n-1))
   const f = (n) => {
     let r
     if (memo[n]) return memo[n]
     if (n == 1) r = 0
     else {
-      let dec, byTwo, byThree
-      dec = 1 + f(n - 1)
-      byTwo = n % 2 == 0 ? 1 + f(n / 2) : Infinity
-      byThree = n % 3 == 0 ? 1 + f(n / 3) : Infinity
+      let dec = 1 + f(n - 1)
+      let byTwo = n % 2 == 0 ? 1 + f(n / 2) : Infinity
+      let byThree = n % 3 == 0 ? 1 + f(n / 3) : Infinity
       r = Math.min(dec, byTwo, byThree)
     }
     memo[n] = r
@@ -33,4 +33,4 @@ const findMinTopDown = (n) => {
 const findMin_ = (n) => {
   const dp = []
 }
-findMinTopDown(2000)
+console.log(findMinTopDown(10))
