@@ -8,7 +8,7 @@ Algorithm -
   * If we include it then we need to search the rest of array for Sum - arr[i]
   * If we exclude it then we need to search the rest of array for Sum
 * Recurrence relation -
-  * f(i, sum) = f(i-1, sum-arr[i]) || f(i-1, sum)
+  * f(i, sum) = f(i-1, sum-arr[i]) || f(i-1, sum) 💡kinda like knapsack.js but without taking profit into account
 * Terminating conditions -
   * if sum == 0 we found the subset cuz we kept decreasing so, return true
   * if i < 0, we reached the end but didnt find the sum so, return false

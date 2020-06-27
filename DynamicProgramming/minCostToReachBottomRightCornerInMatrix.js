@@ -29,7 +29,14 @@ const minCostToReachBottomRightCornerInMatrix = (arr) => {
     if (i == 0 && j == 0) r = arr[0][0]
     else if (i == 0) r = f(i, j - 1) + arr[i][j]
     else if (j == 0) r = f(i - 1, j) + arr[i][j]
-    else r = arr[i][j] + Math.min(f(i, j - 1), f(i - 1, j), f(i - 1, j - 1))
+    else
+      r =
+        arr[i][j] +
+        Math.min(
+          f(i, j - 1),
+          f(i - 1, j),
+          /*if diagonal movement is allowed - f(i - 1, j - 1) */
+        )
     memo[i][j] = r
     return memo[i][j]
   }

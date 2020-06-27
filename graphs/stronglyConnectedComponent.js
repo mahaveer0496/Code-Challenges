@@ -17,7 +17,7 @@
         * When entering a vertex put it into Visited and SCC array    
 */
 
-const { default: Graph } = require('./basicGraph')
+const { default: Graph } = require('./graph')
 const graph = new Graph(true)
 
 const dfsUtil1 = (graph, vertex, visited, stack) => {
