@@ -38,6 +38,7 @@ const dijkstra_basic = (graph, source) => {
       const neighbors = graph.getNeighbors(vertex)
       selectedVertices[vertex] = true
       for (const neighbor of neighbors) {
+        // for each neighbor perform relaxation
         const newDistance = distArray[vertex] + neighbor.edgeWeight
         distArray[neighbor.destination] = Math.min(
           newDistance,

@@ -27,6 +27,7 @@ class Graph {
 
   getEdges() {
     const edges = []
+
     for (const [source, neighbors] of Object.entries(this.adjacenyList)) {
       for (const neighbor of neighbors) {
         edges.push({ source, destination: neighbor })

@@ -27,6 +27,7 @@ const bellmanFord = (graph, source) => {
   const edges = graph.getEdges()
   const distArray = Array.from({ length: vertices.length }, () => Infinity)
   distArray[source] = 0
+
   for (let i = 0; i < vertices.length - 1; i++) {
     for (const edge of edges) {
       const { source, destination, edgeWeight } = edge
@@ -35,15 +36,16 @@ const bellmanFord = (graph, source) => {
     }
   }
 
-  // const newDistArray = [...distArray]
-  // for (const edge of edges) {
-  //   const { source, destination, edgeWeight } = edge
-  //   const newDistance = newDistArray[source] + edgeWeight
-  //   newDistArray[destination] = Math.min(newDistArray[destination], newDistance)
-  // }
-  // const union = [...new Set([...newDistArray, distArray])]
-  // const hasNegativeCycle = union.length > distArray.length
-  // console.log({ hasNegativeCycle })
+  const newDistArray = [...distArray]
+  for (const edge of edges) {
+    const { source, destination, edgeWeight } = edge
+    const newDistance = newDistArray[source] + edgeWeight
+    newDistArray[destination] = Math.min(newDistArray[destination], newDistance)
+  }
+  const union = [...new Set([...newDistArray, distArray])]
+
+  const hasNegativeCycle = union.length > distArray.length
+  console.log({ hasNegativeCycle })
   return distArray
 }
 

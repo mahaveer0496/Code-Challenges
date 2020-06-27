@@ -19,8 +19,8 @@ This problem is based on prefixSum, once we have prefix sum array. We keep track
 and if we see same element again then that means that there is a sub array with sum 0
 
 Example - 
-[4, 2, -3, 1, 6]
-cummulativeArr = [ 4, 6, 3, 4, 10 ]
+[4, 2, -3, 1, 6] -> 
+cummulativeArr = [ 4, 6, 3, 4, 10 ] 
 we see 4 at indices 0 and 3, this means the items between that range (0,3] summed up to 0
 */
 
@@ -29,14 +29,15 @@ const { scan } = require('../utils/scan')
 const doesSubArrayWithZeroSumExists = (arr) => {
   const cummulativeArr = scan(arr)
   const map = {}
-  for (const item of cummulativeArr) {
+  for (const i in cummulativeArr) {
+    const item = cummulativeArr[+i]
     if (item in map) {
-      return true
+      return arr.slice(map[+item] + 1, +i + 1)
     } else {
-      map[item] = true
+      map[item] = +i
     }
   }
-  return false
+  return []
 }
 
 console.log(doesSubArrayWithZeroSumExists([4, 2, -3, 1, 6]))

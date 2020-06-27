@@ -25,56 +25,56 @@ Algorithm - (Kahn's Algorithm)
 
 function topological_sort(numberOfVertices, edges) {
   const sortedOrder = []
-  const graph = {}
+  const adjacenyList = {}
   const inDegrees = {}
   const verticesArray = Array.from({ length: numberOfVertices }, (_, i) => i)
 
   // Create an object with every vertex's inDegree
   verticesArray.forEach((v) => {
     inDegrees[v] = 0
-    graph[v] = []
+    adjacenyList[v] = []
   })
 
   edges.forEach(([source, destination]) => {
-    graph[source].push(destination)
+    ;[source].push(destination)
     inDegrees[destination]++
   })
 
-  const sources = []
+  const sourceQueue = []
   for (const [key, _] of Object.entries(inDegrees)) {
     // Get all source nodes
     if (inDegrees[key] === 0) {
       // For each source node, push it into sorted array
-      sources.push(+key)
+      sourceQueue.push(+key)
     }
   }
-
-  while (sources.length) {
+  // sources = [1,4]
+  while (sourceQueue.length) {
     // Get first source node and Get all neighbors of current source node
-    const node = sources.shift()
+    const node = sourceQueue.shift()
     sortedOrder.push(node)
-    const neighbors = graph[node]
+    const neighbors = adjacenyList[node]
 
     neighbors.forEach((neighbor) => {
       // decrement inDegree of each neighbor
       inDegrees[neighbor]--
       // push all neighbors with 0 inDegree to sorted array
       if (inDegrees[neighbor] === 0) {
-        sources.push(neighbor)
+        sourceQueue.push(neighbor)
       }
     })
   }
   return sortedOrder
 }
 
-// console.log(
-//   `Topological sort: ${topological_sort(4, [
-//     [3, 2],
-//     [3, 0],
-//     [2, 0],
-//     [2, 1],
-//   ])}`,
-// )
+console.log(
+  `Topological sort: ${topological_sort(4, [
+    [3, 2],
+    [3, 0],
+    [2, 0],
+    [2, 1],
+  ])}`,
+)
 
 // console.log(
 //   `Topological sort: ${topological_sort(5, [
