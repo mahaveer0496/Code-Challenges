@@ -45,4 +45,45 @@ const generatePowerSet = (arr) => {
   return powerSet
 }
 
-console.log(generatePowerSet([1, 2, 3]))
+const generatePowerSetRecursive = (A) => {
+  const powerSet = []
+  const f = (currentIndex, subset) => {
+    powerSet.push([...subset])
+    for (let i = currentIndex; i < A.length; i++) {
+      subset.push(A[i])
+      f(i + 1, subset)
+      subset.pop()
+    }
+  }
+  f(0, [])
+
+  return powerSet
+  /*
+f(0)
+  f(1)
+    f(2)
+      f(3)
+    f(3)
+  f(2)
+    f(3)
+  f(3)
+*/
+}
+
+const generatePowerSetBFS = (A) => {
+  const powerSet = [[]]
+  for (let i = 0; i < A.length; i++) {
+    const currentElement = A[i]
+    const n = powerSet.length
+    for (let j = 0; j < n; j++) {
+      const set = [...powerSet[j]]
+      set.push(currentElement)
+      powerSet.push(set)
+    }
+  }
+  return powerSet
+}
+
+// console.log(generatePowerSet([1, 2, 3]).sort())
+// console.log(generatePowerSetRecursive([1, 2, 3]).sort())
+console.log(generatePowerSetBFS([1, 2, 3]))
