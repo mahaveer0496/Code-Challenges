@@ -6,7 +6,7 @@ class Node {
   }
 }
 
-export default class BST {
+exports.default = class BST {
   constructor() {
     this.root = null
   }

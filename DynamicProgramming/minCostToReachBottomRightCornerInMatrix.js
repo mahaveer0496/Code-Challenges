@@ -24,7 +24,7 @@ const minCostToReachBottomRightCornerInMatrix = (arr) => {
 
   const f = (i, j) => {
     let r
-    if (memo[i][j]) return console.log(memo[i][j]) || memo[i][j]
+    if (memo[i][j]) return memo[i][j]
 
     if (i == 0 && j == 0) r = arr[0][0]
     else if (i == 0) r = f(i, j - 1) + arr[i][j]
@@ -45,8 +45,10 @@ const minCostToReachBottomRightCornerInMatrix = (arr) => {
   return r
 }
 
-minCostToReachBottomRightCornerInMatrix([
-  [1, 3, 5, 8],
-  [4, 2, 1, 7],
-  [4, 3, 2, 3],
-])
+console.log(
+  minCostToReachBottomRightCornerInMatrix([
+    [1, 3, 5, 8],
+    [4, 2, 1, 7],
+    [4, 3, 2, 3],
+  ]),
+)

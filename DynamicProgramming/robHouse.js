@@ -17,4 +17,4 @@ var rob = function (arr) {
   return f(arr.length - 1)
 }
 
-rob([3, 0, 1, 3])
+console.log(rob([3, 0, 1, 3]))

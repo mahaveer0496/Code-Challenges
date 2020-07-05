@@ -31,4 +31,4 @@ const evaluateExpression = (expression) => {
   return f(expression)
 }
 
-console.log(evaluateExpression('1+2*3'))
+console.log(evaluateExpression('2*3-4-5*2'))

@@ -15,7 +15,7 @@ Algorithm -
   * if sum == 0 we found the subset cuz we kept decreasing so, return true
   * if i < 0, we reached the end but didnt find the sum so, return false
 */
-
+// [1,2,3,4] = 10 -> 5,5
 const equalSubsetSumPartition = (arr) => {
   const total = arr.reduce((acc, curr) => acc + curr, 0)
   if (total % 2 != 0) return false

@@ -14,14 +14,17 @@ Algorithm -
   * if i < 0, we reached the end but didnt find the sum so, return false
 */
 
-const subsetSum = (arr, sum) => {
-  const f = (i, sum) => {
-    if (sum == 0) return true
-    if (i < 0) return false
-    if (arr[i] > sum) return f(i - 1, sum)
-    return f(i - 1, sum - arr[i]) || f(i - 1, sum)
+const subsetSum = (arr, capacity) => {
+  const f = (capacity, currentIndex) => {
+    if (capacity == 0) return true
+    if (currentIndex < 0) return false
+    if (arr[currentIndex] > capacity) return f(capacity, currentIndex - 1)
+    return (
+      f(capacity - arr[currentIndex], currentIndex - 1) ||
+      f(capacity, currentIndex - 1)
+    )
   }
-  return f(arr.length - 1, sum)
+  return f(capacity, arr.length - 1)
 }
 
 console.log(subsetSum([3, 2, 7, 1], 1))

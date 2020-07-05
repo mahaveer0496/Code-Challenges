@@ -24,6 +24,7 @@ Algorithm -
 
 const totalPathCount = (n, m) => {
   const f = (i, j) => {
+    // TODO: Find why i returned 1 for i=0, j=0
     if (i == 0 && j == 0) return 1
     if (i == 0) return f(i, j - 1)
     if (j == 0) return f(i - 1, j)
@@ -51,7 +52,7 @@ const totalPathCountWithDiagonal = (n, m) => {
   }
   return f(n - 1, m - 1)
 }
-console.log(totalPathCount(2, 2))
-console.log(totalPathCount(3, 4))
-console.log(totalPathCount2(3, 4))
+// console.log(totalPathCount(2, 2))
+console.log(totalPathCount(5, 4))
+console.log(totalPathCount2(5, 4))
 console.log(totalPathCountWithDiagonal(3, 3))
