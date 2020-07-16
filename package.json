@@ -6,7 +6,8 @@
   "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.10.2",
-    "@babel/node": "^7.10.1"
+    "@babel/node": "^7.10.1",
+    "collections": "^5.1.11"
   },
   "scripts": {
     "dev": "nodemon --exec babel-node "

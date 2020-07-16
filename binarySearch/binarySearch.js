@@ -24,6 +24,27 @@ const binarySearch = (A, key, isAscending = true) => {
   return -1
 }
 
-// console.log(binarySearch([1, 2, 3, 4, 5], 3))
+const binarySearchRecursive = (A, key) => {
+  const f = ({ A, key, l, r }) => {
+    if (l <= r) {
+      const mid = l + Math.floor((r - l) / 2)
+      if (A[mid] == key) return mid
 
+      if (key > A[mid]) {
+        return f({ A, key, l: mid + 1, r })
+      }
+      if (key < A[mid]) {
+        return f({ A, key, l, r: mid - 1 })
+      }
+    } else {
+      return -1
+    }
+  }
+  return f({ A, key, l: 0, r: A.length - 1 })
+}
+
+const key = 4
+const A = [1, 2, 3, 4, 5]
+console.log(binarySearch(A, key))
+console.log(binarySearchRecursive(A, key))
 export default binarySearch
