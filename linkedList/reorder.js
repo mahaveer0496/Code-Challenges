@@ -1,6 +1,6 @@
 const { default: Node } = require('./node')
 const { default: getMid } = require('./middleOfLinkedList')
-const { default: reverse } = require('../linkedList/reverse')
+const { default: reverse } = require('./reverse')
 const { default: log } = require('../utils/log')
 
 const reorder = (head) => {
