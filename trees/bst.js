@@ -6,7 +6,7 @@ class Node {
   }
 }
 
-exports.default = class BST {
+class BST {
   constructor() {
     this.root = null
   }
@@ -15,43 +15,143 @@ exports.default = class BST {
     let currentNode = this.root
     if (this.root == null) this.root = node
     else {
+      let parent
       while (currentNode) {
+        parent = currentNode
         // we are at leaf node
         // break
         if (value < currentNode.value) {
-          if (currentNode.left == null) {
-            currentNode.left = node
-            break
-          } else {
-            currentNode = currentNode.left
-          }
+          // if (currentNode.left == null) {
+          //   currentNode.left = node
+          //   break
+          // } else {
+          // currentNode = currentNode.left
+          // }
+          currentNode = currentNode.left
         } else if (value >= currentNode.value) {
-          if (currentNode.right == null) {
-            currentNode.right = node
-            break
-          } else {
-            currentNode = currentNode.right
-          }
+          // if (currentNode.right == null) {
+          //   currentNode.right = node
+          //   break
+          // } else {
+          //   currentNode = currentNode.right
+          // }
+          currentNode = currentNode.right
         }
       }
+
+      if (value < parent.value) {
+        parent.left = node
+      } else {
+        parent.right = node
+      }
     }
+    return this
+  }
+  // TODO: Implement this
+  insertRescursive(value) {
+    const node = new Node(value)
+    let parent
+    const f = (currentNode = this.root) => {
+      if (!currentNode) return
+      if (currentNode.value < node.value) {
+        return f(currentNode.left)
+      } else {
+        return f(currentNode.right)
+      }
+    }
+    console.log(f())
     return this
   }
   inspect() {
     return JSON.stringify(this, null, 2)
   }
 }
+const search = (tree, value) => {
+  let currentNode = tree.root
+  while (currentNode) {
+    if (value == currentNode.value) return [currentNode]
+    if (value < currentNode.value) {
+      currentNode = currentNode.left
+    } else {
+      currentNode = currentNode.right
+    }
+  }
 
-// const tree = new BST()
-//   .insert(9)
-//   .insert(4)
-//   .insert(6)
-//   .insert(20)
-//   .insert(170)
-//   .insert(15)
-//   .insert(1)
+  return [-1]
+}
+const searchRecursive = (tree, value) => {
+  const f = (node) => {
+    if (!node) return -1
+    if (node.value == value) return node
+    if (value < node.value) return f(node.left)
+    return f(node.right)
+  }
+  return [f(tree.root)]
+}
+const preOrder = (tree) => {
+  const result = []
+  const f = (node) => {
+    if (node) {
+      result.push(node)
+      f(node.left)
+      f(node.right)
+    }
+  }
+  f(tree.root)
+  return result
+}
 
+const inOrder = (tree) => {
+  const result = []
+  const f = (node) => {
+    if (node) {
+      f(node.left)
+      result.push(node)
+      f(node.right)
+    }
+  }
+  f(tree.root)
+  return result
+}
+
+const postOrder = (tree) => {
+  const result = []
+  const f = (node) => {
+    if (node) {
+      f(node.left)
+      f(node.right)
+      result.push(node)
+    }
+  }
+  f(tree.root)
+  return result
+}
+
+const deleteNode = (tree, value) => {
+  const node = search(tree, value)
+  console.log(node)
+  return node
+}
+const tree = new BST()
+  .insert(4)
+  .insert(9)
+  .insert(5)
+  .insert(2)
+  .insert(8)
+  .insert(12)
+  .insert(10)
+  .insert(14)
+
+const getNodeValue = (node) => node.value
 // console.log(tree)
+// console.log(preOrder(tree).map(getNodeValue))
+// console.log(inOrder(tree).map(getNodeValue))
+// console.log(postOrder(tree).map(getNodeValue))
+console.log(search(tree, 2).map(getNodeValue))
+// console.log(searchRecursive(tree, 10).map(getNodeValue))
+// console.log(deleteNode(tree, 10).map(getNodeValue))
+
+exports.default = BST
 
 // Full binary tree : if every node has 0 or 2 children
 //          18

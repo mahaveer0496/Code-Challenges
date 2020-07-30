@@ -15,7 +15,7 @@ const avgBrute = (arr, k) => {
     for (let j = i; j < i + k; j++) {
       sum += arr[j]
     }
-    avgs.push(sum / k)
+    avgs.push(sum / k)``
   }
   return avgs
 }
