@@ -1,7 +1,7 @@
 /* 
 Given a string, find the length of the longest substring in it with no more than K distinct characters.
 
-Algortihm -
+Algorithm -
 * Brute Force 
   Just get all substrings, count how many characters substring contains, filter if count <= k, return the longest
 * Dynamic Sliding Window
@@ -80,5 +80,18 @@ const longestSubstringWithKDistinctCharactersDynamicWindow = (s, k) => {
   return maxSubstring
 }
 
+
+const ls = (A, k) => {
+  const wordCount = {}
+  let start = 0
+  for (let end = 0; end < A.length; end++) {
+    const currentElement = A[end]
+    if (Object.keys(wordCount) > k) {
+      start++
+    }
+  }
+}
+
 console.log(longestSubstringWithKDistinctCharactersBruteForce('araaci', 2))
 console.log(longestSubstringWithKDistinctCharactersDynamicWindow('araaci', 2))
+console.log(ls('araaci', 2))

@@ -1,3 +1,6 @@
+/* 
+Given an array of numbers and a target, find if the array container 2 number that sum up to target
+ */
 /**
  * @param {number[]} nums
  * @param {number} target
@@ -41,7 +44,39 @@ var binarySearch = (arr, target) => {
 };
 
 var twoSumWithSort = function (nums, target) {
-  nums = nums.sort();
+  nums = nums.sort()
+  let left = 0
+  let right = nums.length - 1
+
+  while (left <= right) {
+    const currentSum = nums[left] + nums[right]
+    if (currentSum < target) {
+      left++
+    } else if (currentSum > target) {
+      right--
+    } else {
+      [nums[left], nums[right]]
+    }
+  }
+  return []
 };
 
-console.log(binarySearch([1, 2, 3, 4, 5], 2));
+function twoNumberSumUsingHash(numbers, target) {
+  const hash = {}
+  for (const num of numbers) {
+    const y = Number(target) - Number(num)
+    if (y in hash) {
+      return [y, num]
+    } else {
+      hash[num] = true
+    }
+  }
+  return []
+}
+
+const nums = [1, 2, 3, 4, 5]
+const target = 5
+console.log(twoSumWithSort(nums, target))
+console.log(twoNumberSumUsingHash(nums, target))
+
+// console.log(binarySearch([1, 2, 3, 4, 5], 2));

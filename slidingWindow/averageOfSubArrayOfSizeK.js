@@ -20,21 +20,41 @@ const avgBrute = (arr, k) => {
   return avgs
 }
 const avgSmart = (arr, k) => {
-  let avgs = []
+  const avgs = []
+
   let firstSum = 0
   for (let i = 0; i < k; i++) {
     firstSum += arr[i]
   }
   avgs.push(firstSum / k)
+
   let previousSum = firstSum
   for (let i = k; i < arr.length; i++) {
     const currentSum = previousSum + arr[i] - arr[i - k]
     avgs.push(currentSum / k)
     previousSum = currentSum
   }
+
   return avgs
 }
 
+const avgSmartV2 = (A, k) => {
+  const avgs = []
+  let windowSum = 0
+  let start = 0  
+  for (let end = 0; end < A.length; end++) {    
+    // while the window length < k, keep adding as usual
+    windowSum += A[end]
+    // when window length >= k - 1, means we need to start sliding
+    if (end >= k - 1) {
+      // push the current sum
+      avgs.push(windowSum / k)
+      // decrease the start number
+      windowSum -= A[start]
+      start++
+    }
+  }
+}
 const maxSum = (arr, k) => {
   let maxSum = -Infinity
   let firstSum = 0
@@ -56,3 +76,5 @@ const maxSum = (arr, k) => {
 console.log(avgBrute([1, 3, 2, 6, -1, 4, 1, 8, 2], 5))
 console.log(avgSmart([1, 3, 2, 6, -1, 4, 1, 8, 2], 5))
 console.log(maxSum([1, 3, 2, 6, -1, 4, 1, 8, 2], 5))
+
+

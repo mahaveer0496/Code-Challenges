@@ -13,7 +13,7 @@ const findAllMissingNumbers = (A) => {
   const result = []
   for (let i = 0; i < n; i++) {
     if (A[i] != i + 1) {
-      result.push(A[i])
+      result.push(i + 1)
     }
   }
   return result
