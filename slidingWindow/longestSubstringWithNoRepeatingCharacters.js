@@ -12,3 +12,28 @@ Algortihm -
   * While shrinking, we’ll decrement the frequency of the character going out of the window and remove it from the HashMap if its frequency becomes zero.
   * At the end of each step, we’ll check if the current window length is the longest so far, and if so, remember its length.
 */
+
+const nonRepeatSubstring = (S, k) => {
+  let start = 0
+  let charMap = {}
+  let maxLength = 0
+
+  for (let end = 0; end < S.length; end++) {
+    const currentElement = S[end]
+
+    // if we see element again, then we reset the start pointer, so we always have string with non repeating elements
+    if (currentElement in charMap) start = Math.max(start, charMap[currentElement] + 1)
+    
+    charMap[currentElement] = end
+
+    maxLength = Math.max(maxLength, end - start + 1)
+  }
+
+  return maxLength
+}
+
+console.log(nonRepeatSubstring('aabccbb'))
+console.log(nonRepeatSubstring('abbbb'))
+console.log(nonRepeatSubstring('abccde'))
+console.log(nonRepeatSubstring('aaaaa'))
+console.log(nonRepeatSubstring('abcdeabc'))
