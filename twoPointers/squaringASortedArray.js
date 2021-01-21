@@ -8,8 +8,7 @@ Output: [0, 1, 4, 4, 9]
 > The final array is sorted
 */
 
-
-const squareEm1 = (A) => A.map(x => x * x).sort()
+const squareEm1 = (A) => A.map((x) => x * x).sort()
 const squareEm2 = (A) => {
   const n = A.length
   const squares = Array(n).fill(0)
@@ -20,9 +19,6 @@ const squareEm2 = (A) => {
   while (left <= right) {
     const leftSq = A[left] * A[left]
     const rightSq = A[right] * A[right]
-    squares
-    leftSq
-    rightSq
 
     if (leftSq > rightSq) {
       squares[highestIndex] = leftSq
@@ -34,7 +30,6 @@ const squareEm2 = (A) => {
 
     highestIndex--
   }
-
 
   return squares
 }
