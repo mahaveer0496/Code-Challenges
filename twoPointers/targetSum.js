@@ -1,11 +1,10 @@
 /**
- * Given an array of sorted numbers and a target sum, find a pair in the array whose sum is equal to the given target. 
-*/
-
+ * Given an array of sorted numbers and a target sum, find a pair in the array whose sum is equal to the given target.
+ */
 
 /**
  * just take all the pairs and sum them
- * 
+ *
  * time = O(n^2)
  */
 const targetSumBrute = (A, t) => {
@@ -17,10 +16,9 @@ const targetSumBrute = (A, t) => {
   return []
 }
 
-
 /**
  * As the array is sorted, for each element `x` we can do binary search in rest of the array for `t-x`
- * 
+ *
  * time = O(n * log(n)), as we perform `n` binary searchs
  */
 const targetSumBinary = (A, t) => {
@@ -37,7 +35,7 @@ const targetSumBinary = (A, t) => {
  * if A[l]+A[r] === `t` return
  * if A[l]+A[r] < `t` we increment `l`, cuz anything on left of `l` will just give smaller sum
  * else we decrement `r` as we need smaller sum
- * 
+ *
  * time = O(n), just 1 pass through array
  */
 const targetSumPointers = (A, t) => {
@@ -53,10 +51,7 @@ const targetSumPointers = (A, t) => {
   return []
 }
 
-
 const targetSumHash = (A, t) => {
-
-
   return []
 }
 
@@ -64,9 +59,6 @@ console.log(targetSumBrute([1, 2, 3, 4, 6], 6))
 console.log(targetSumBinary([1, 2, 3, 4, 6], 6))
 console.log(targetSumPointers([1, 2, 3, 4, 6], 6))
 console.log(targetSumHash([1, 2, 3, 4, 6], 6))
-
-
-
 
 function binarySearch(A, x) {
   if (!A || A.length === 0) return null

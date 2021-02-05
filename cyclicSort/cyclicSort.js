@@ -1,5 +1,3 @@
-const { default: log } = require('./../utils/log')
-
 const cyclicSort = (A) => {
   let i = 0
   while (i < A.length) {
@@ -13,4 +11,6 @@ const cyclicSort = (A) => {
   return A
 }
 
-log(cyclicSort([2, 6, 4, 3, 1, 5]))
+
+console.log(cyclicSort([2, 6, 4, 3, 1, 5]))
+

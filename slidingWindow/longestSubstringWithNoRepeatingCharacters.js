@@ -13,7 +13,24 @@ Algortihm -
   * At the end of each step, we’ll check if the current window length is the longest so far, and if so, remember its length.
 */
 
-const nonRepeatSubstring = (S, k) => {
+const noRepeat = (S) => {
+  let start = 0
+  let charMap = {}
+  let maxLength = 0
+  for (let end = 0; end < S.length; end++) {
+    const currentElement = S[end]
+    if(!(currentElement in charMap)) charMap[currentElement] = end
+    else {
+      charMap[currentElement] = end
+      start = charMap[currentElement]+1
+    }
+    maxLength = Math.max(maxLength, end- start + 1)    
+  }
+  return maxLength
+}
+
+
+const nonRepeatSubstring = (S) => {
   let start = 0
   let charMap = {}
   let maxLength = 0
@@ -32,8 +49,8 @@ const nonRepeatSubstring = (S, k) => {
   return maxLength
 }
 
-console.log(nonRepeatSubstring('aabccbb'))
-console.log(nonRepeatSubstring('abbbb'))
-console.log(nonRepeatSubstring('abccde'))
-console.log(nonRepeatSubstring('aaaaa'))
-console.log(nonRepeatSubstring('abcdeabc'))
+console.log(noRepeat('aabccbb'))
+console.log(noRepeat('abbbb'))
+console.log(noRepeat('abccde'))
+console.log(noRepeat('aaaaa'))
+console.log(noRepeat('aabcadeabc'))
