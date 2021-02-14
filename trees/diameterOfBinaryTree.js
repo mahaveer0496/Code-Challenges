@@ -1,59 +1,51 @@
-// TODO: Check why answer differs by 1
-// Given a binary tree, you need to compute the length of the diameter of the tree. The diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root.
+/* 
+  The diameter of a tree is the number of nodes on the longest path between any two leaf nodes.
+  The diameter of a tree may or may not pass through the root.
+*/
+const getDiameter = (root) => {
+  let maxDiameter = 0
 
-// Example:
-// Given a binary tree
-//           1
-//          / \
-//         2   3
-//        / \
-//       4   5
-// Return 3, which is the length of the path [4,2,1,3] or [5,2,1,3].
+  const f = (node) => {
+    if (!node) return 0
 
-// Note: The length of path between two nodes is represented by the number of edges between them.
+    const leftTreeHeight = f(node.left)
+    const rightTreeHeight = f(node.right)
 
-/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {TreeNode} root
- * @return {number}
- */
+    if (leftTreeHeight != 0 && rightTreeHeight != 0) {
+      const diameter = leftTreeHeight + rightTreeHeight + 1
+      maxDiameter = Math.max(diameter, maxDiameter)
+    }
 
-//  Diameter is the longest path from one leaf to another
-var diameterOfBinaryTree = function (root) {
-  const leftHeight = height(root.left);
-  const rightHeight = height(root.right);
-  return leftHeight + rightHeight + 1;
-};
+    return Math.max(leftTreeHeight, rightTreeHeight) + 1
+  }
 
-const height = (node) => {
-  if (node == null) return 0;
-  console.log(JSON.stringify(node, null, 2));
+  f(root)
 
-  var leftHeight = height(node.left);
-  var rightHeight = height(node.right);
-  const result = Math.max(leftHeight, rightHeight) + 1;
-  return result;
-};
+  return maxDiameter
+}
 
-const tree = {
-  root: {
-    val: 1,
-    left: {
-      val: 2,
-      left: { val: 4 },
-      right: { val: 5 },
-    },
-    right: {
-      val: 3,
-    },
-  },
-};
+class TreeNode {
+  constructor(val, left = null, right = null) {
+    this.val = val
+    this.left = left
+    this.right = right
+  }
+}
 
-console.log(height(tree.root));
-// console.log(diameterOfBinaryTree(tree.root));
+const root = new TreeNode(1)
+root.left = new TreeNode(2)
+root.right = new TreeNode(3)
+root.left.left = new TreeNode(4)
+root.right.left = new TreeNode(5)
+root.right.right = new TreeNode(6)
+
+console.log(getDiameter(root))
+
+root.left.left = null
+root.right.left.left = new TreeNode(7)
+root.right.left.right = new TreeNode(8)
+root.right.right.left = new TreeNode(9)
+root.right.left.right.left = new TreeNode(10)
+root.right.right.left.left = new TreeNode(11)
+
+console.log(getDiameter(root))

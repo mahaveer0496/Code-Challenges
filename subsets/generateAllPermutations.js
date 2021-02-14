@@ -1,19 +1,3 @@
-const generateAllPermutations = (A) => {
-  const allPermutations = []
-  const f = (a, l, r) => {
-    if (l == r) allPermutations.push([...a])
-    else
-      for (let i = l; i < r + 1; i++) {
-        ;[a[l], a[i]] = [a[i], a[l]]
-        f(a, l + 1, r)
-        ;[a[l], a[i]] = [a[i], a[l]]
-      }
-  }
-
-  f(A, 0, A.length - 1)
-  return allPermutations
-}
-
 const generateAllPermutationsEasierSolution = (A) => {
   const permutations = []
   const f = (A, currentPermutation) => {
@@ -56,6 +40,5 @@ const generateAllPermutationsBFS = (A) => {
   return result
 }
 
-// console.log(generateAllPermutations(['A', 'B', 'C']))
-// console.log(generateAllPermutationsEasierSolution(['A', 'B', 'C']))
+console.log(generateAllPermutationsEasierSolution(['A', 'B', 'C']))
 console.log(generateAllPermutationsBFS(['A', 'B', 'C']))
