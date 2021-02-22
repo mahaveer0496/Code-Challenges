@@ -21,15 +21,16 @@ const getLongestSubArray = function (A, k) {
 
     if (currentElement == 1) onesCount++
 
-    if (windowSize - onesCount > k) {
+    while (end - start + 1 - onesCount > k) {
       if (A[start] == 1) onesCount--
       start++
     }
 
+    console.log(A.slice(start, end + 1))
     maxLength = Math.max(maxLength, windowSize)
   }
 
   return maxLength
-};
+}
 
 console.log(getLongestSubArray([0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1], 2))

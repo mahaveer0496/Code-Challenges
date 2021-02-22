@@ -13,7 +13,7 @@ Algorithm
   
 */
 
-const sumAll = A => A.reduce((a, c) => a + c, 0)
+const sumAll = (A) => A.reduce((a, c) => a + c, 0)
 
 const maxSumV1 = (A, k) => {
   const indexForMax = getMaxIndex(getAllSums(A, k))
@@ -24,7 +24,7 @@ const maxSumV2 = (A, k) => {
   // find the first window sum
   let currentSum = sumAll(A.slice(0, k))
   let max = currentSum
-  
+
   for (let i = k; i < A.length; i++) {
     const currentElement = A[i]
     currentSum = currentSum + currentElement - A[i - k]
@@ -34,44 +34,15 @@ const maxSumV2 = (A, k) => {
   return max
 }
 
-
 console.log(maxSumV1([2, 1, 5, 1, 3, 2], 3))
 console.log(maxSumV1([1, 2, 3, 4, 5, 6, 7, 8, 9], 3))
 console.log(maxSumV2([2, 1, 5, 1, 3, 2], 3))
 console.log(maxSumV2([1, 2, 3, 4, 5, 6, 7, 8, 9], 3))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function getAllSums(A, k) {
   let start = 0
   let windowSum = 0
   let sums = []
-
 
   for (let end = 0; end < A.length; end++) {
     windowSum += A[end]
@@ -96,4 +67,3 @@ function getMaxIndex(A) {
   }
   return maxIndex
 }
-

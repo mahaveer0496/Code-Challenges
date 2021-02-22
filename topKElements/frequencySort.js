@@ -3,7 +3,7 @@ Given a string, sort it based on the decreasing frequency of its characters.
 */
 
 const Heap = require('collections/heap')
-const { default: getFMap } = require('../utils/getFrequencyMap')
+const { default: getFMap } = require('../utils/getFMap')
 
 const fSort = (S) => {
   const fMap = getFMap(S)

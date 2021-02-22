@@ -1,5 +1,5 @@
 const Heap = require('collections/heap')
-const { default: getFMap } = require('../utils/getFrequencyMap')
+const { default: getFMap } = require('../utils/getFMap')
 
 /**
 Given an unsorted array of numbers, find the top ‘K’ frequently occurring numbers in it.

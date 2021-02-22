@@ -2,10 +2,10 @@
 Given a string, find the length of the longest substring in it with no more than K distinct characters.
 */
 
-
 /*
   Just get all substrings, count how many characters substring contains, filter if count <= k, return the longest
 */
+console.clear()
 const longestSubstringWithKDistinctCharactersBruteForce = (s, k) => {
   const allSubStrings = []
   const n = s.length
@@ -44,13 +44,13 @@ const longestSubstringWithKDistinctCharactersBruteForce = (s, k) => {
   return maxSubstring
 }
 
+/*
+ * Create an object map for keeping track of characters, as window is expanded, increment count for that character
+ * Once the character count object > `k` keys, we've violated the condition for `upto k` characters, so we have to shrink the window _untill_ we are satisfying the condition again and hence while loop is used
+ * While shriking window, we decrement count of the character going out of the window, if any character becomes 0 we remove it from object so we know for sure its not in current window.
+ * maxLength at any point is max of itself or windowSize
+ */
 
-/* 
-  * Create an object map for keeping track of characters, as window is expanded, increment count for that character
-  * Once the character count object > `k` keys, we've violated the condition for `upto k` characters, so we have to shrink the window _untill_ we are satisfying the condition again and hence while loop is used
-  * While shriking window, we decrement count of the character going out of the window, if any character becomes 0 we remove it from object so we know for sure its not in current window.
-  * maxLength at any point is max of itself or windowSize    
-*/
 const longestSubstringWithKDistinctCharactersDynamicWindow = (s, k) => {
   let windowStart = 0
   let maxLength = 0
@@ -70,11 +70,8 @@ const longestSubstringWithKDistinctCharactersDynamicWindow = (s, k) => {
 
     maxLength = Math.max(maxLength, windowEnd - windowStart + 1)
   }
-  return maxSubstring
+  return maxLength
 }
-
-
 
 console.log(longestSubstringWithKDistinctCharactersBruteForce('araaci', 2))
 console.log(longestSubstringWithKDistinctCharactersDynamicWindow('araaci', 2))
-
